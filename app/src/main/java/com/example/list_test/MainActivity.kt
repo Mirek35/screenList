@@ -58,32 +58,41 @@ fun TestDropDownMenu() {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        Row(horizontalArrangement = Arrangement.spacedBy(20.dp))
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.Bottom)
         {
-            Spacer(modifier = Modifier.width(10.dp))
 
 
             Text(
                 "Order",
-                Modifier.background(Color.DarkGray,).clip(RoundedCornerShape(20.dp)).padding(10.dp)
+                Modifier
+                    .background(Color.DarkGray)
+                    .clip(RoundedCornerShape(20.dp))
+                    .padding(10.dp)
             )
 
 
-            Spacer(modifier = Modifier.width(18.dp))
+
             Text(
                 "Order",
-                Modifier.background(Color.DarkGray, RectangleShape).padding(10.dp)
+                Modifier
+                    .background(Color.DarkGray, RectangleShape)
+                    .padding(10.dp)
             )
-            Spacer(modifier = Modifier.width(18.dp))
+
             Text(
                 "Order",
-                Modifier.background(Color.DarkGray, RectangleShape).padding(10.dp)
+                Modifier
+                    .background(Color.DarkGray, RectangleShape)
+                    .padding(10.dp)
             )
 
         }
         Spacer(modifier = Modifier.height(20.dp))
 
-        Row() {Spacer(modifier = Modifier.width(10.dp))
+        Row() {
+            Spacer(modifier = Modifier.width(10.dp))
             Icon(
                 painter = painterResource(R.drawable.radar2),
                 contentDescription = "ikona",
@@ -134,19 +143,18 @@ fun TestDropDownMenu() {
             }
         }
         Spacer(modifier = Modifier.width(50.dp))
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.LightGray)
-            .width(30.dp)
-            .height(300.dp)
-            .wrapContentHeight(),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.LightGray)
+                .width(30.dp)
+                .height(300.dp)
+                .wrapContentHeight(),
             horizontalArrangement = Arrangement.SpaceBetween,
 
 
-        )
+            )
         {
-
-
 
 
         }
