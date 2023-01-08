@@ -3,6 +3,7 @@ package com.example.list_test
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -24,8 +25,8 @@ class MainActivity : ComponentActivity() {
             List_testTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(),
-                    color = Color.Magenta) {
-                    Greeting()
+                    color = MaterialTheme.colors.background) {
+                    TestDropDownMenu()
                 }
             }
         }
@@ -33,16 +34,39 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting() {
+fun TestDropDownMenu() {
     var expanded by remember { mutableStateOf(false) }
     val suggestions = listOf("Day", "Week", "Month")
 
     Spacer(modifier = Modifier.height(20.dp))
 
+Box() {
+
+    Column(modifier = Modifier
+        .background(Color.LightGray)
+        .fillMaxWidth()
+
+    ) {
+        Spacer(modifier = Modifier.height(20.dp))
+        Image(painter = painterResource(id = R.drawable.main_background), contentDescription ="drgdrg" )
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Row() {
+            Text(text = "Ikona, Text")
+            Spacer(modifier = Modifier.width(20.dp))
+            Text(text = "Ikona, Text")
+            Spacer(modifier = Modifier.width(20.dp))
+            Text(text = "Ikona, Text")
+
+        }
+
+    }
+}
+
 
     Row(modifier = Modifier
 
-        .background(Color.LightGray)
         .absoluteOffset(x = 23.dp, y = 500.dp)
 
     ) {
@@ -66,14 +90,14 @@ fun Greeting() {
 
         Box {
             Button(modifier = Modifier
-                    .height(24.dp)
-                    .width(86.dp),
+                .height(24.dp)
+                .width(86.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green),
                 onClick = { expanded = !expanded },
                 contentPadding = PaddingValues(0.dp))   //text widoczny w Button
             {
                 Text("Last day", modifier = Modifier,
-                color = Color.White)
+                    color = Color.White)
                 Icon(
                     imageVector = Icons.Filled.ArrowDropDown,
                     contentDescription = null,
@@ -97,7 +121,6 @@ fun Greeting() {
         }
 
     }
-
 }
 
 
@@ -105,6 +128,6 @@ fun Greeting() {
 @Composable
 fun DefaultPreview() {
     List_testTheme {
-        Greeting()
+        TestDropDownMenu()
     }
 }
