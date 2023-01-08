@@ -3,15 +3,20 @@ package com.example.list_test
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,89 +43,117 @@ fun TestDropDownMenu() {
     var expanded by remember { mutableStateOf(false) }
     val suggestions = listOf("Day", "Week", "Month")
 
-    Spacer(modifier = Modifier.height(20.dp))
+//    Spacer(modifier = Modifier.height(20.dp))
 
-Box() {
 
     Column(modifier = Modifier
-        .background(Color.LightGray)
-        .fillMaxWidth()
+        .background(Color.Gray)
+        .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(5.dp)  //odlegl pomiedzy elementami
 
     ) {
         Spacer(modifier = Modifier.height(20.dp))
-        Image(painter = painterResource(id = R.drawable.main_background), contentDescription ="drgdrg" )
+        Image(painter = painterResource(id = R.drawable.main_background),
+            contentDescription = "")
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        Row() {
-            Text(text = "Ikona, Text")
-            Spacer(modifier = Modifier.width(20.dp))
-            Text(text = "Ikona, Text")
-            Spacer(modifier = Modifier.width(20.dp))
-            Text(text = "Ikona, Text")
+        Row(horizontalArrangement = Arrangement.spacedBy(20.dp))
+        {
+            Spacer(modifier = Modifier.width(10.dp))
+
+
+            Text(
+                "Order",
+                Modifier.background(Color.DarkGray,).clip(RoundedCornerShape(20.dp)).padding(10.dp)
+            )
+
+
+            Spacer(modifier = Modifier.width(18.dp))
+            Text(
+                "Order",
+                Modifier.background(Color.DarkGray, RectangleShape).padding(10.dp)
+            )
+            Spacer(modifier = Modifier.width(18.dp))
+            Text(
+                "Order",
+                Modifier.background(Color.DarkGray, RectangleShape).padding(10.dp)
+            )
 
         }
+        Spacer(modifier = Modifier.height(20.dp))
 
-    }
-}
+        Row() {Spacer(modifier = Modifier.width(10.dp))
+            Icon(
+                painter = painterResource(R.drawable.radar2),
+                contentDescription = "ikona",
+                modifier = Modifier
+                    .width(24.dp)
+                    .height(24.dp),
+                tint = Color.Unspecified
+            )
+            Spacer(modifier = Modifier.width(15.dp))
 
-
-    Row(modifier = Modifier
-
-        .absoluteOffset(x = 23.dp, y = 500.dp)
-
-    ) {
-        Icon(
-            painter = painterResource(R.drawable.radar2),
-            contentDescription = "ikona",
-            modifier = Modifier
-                .width(24.dp)
-                .height(24.dp),
-            tint = Color.Unspecified
-        )
-        Spacer(modifier = Modifier.width(15.dp))
-
-        Text(text = "Last measurements", color = Color.White,
-            fontFamily = FontFamily.Monospace,
-            modifier = Modifier
-                .width(200.dp)
-                .height(20.dp)
-        )
-        Spacer(modifier = Modifier.width(50.dp))
-
-        Box {
-            Button(modifier = Modifier
-                .height(24.dp)
-                .width(86.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green),
-                onClick = { expanded = !expanded },
-                contentPadding = PaddingValues(0.dp))   //text widoczny w Button
-            {
-                Text("Last day", modifier = Modifier,
-                    color = Color.White)
-                Icon(
-                    imageVector = Icons.Filled.ArrowDropDown,
-                    contentDescription = null,
-                    modifier = Modifier,
-                    Color.White
-                )
-            }
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-            ) {
-                suggestions.forEach { label ->
-                    DropdownMenuItem(onClick = {
-                        expanded = false
-                        //do something ...
-                    }) {
-                        Text(text = label)
+            Text(text = "Last measurements", color = Color.White,
+                fontFamily = FontFamily.Monospace,
+                modifier = Modifier
+                    .width(200.dp)
+                    .height(30.dp)
+            )
+            Spacer(modifier = Modifier.width(50.dp))
+            Box() {
+                Button(modifier = Modifier
+                    .height(28.dp)
+                    .width(100.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
+                    onClick = { expanded = !expanded },
+                    contentPadding = PaddingValues(0.dp))   //text widoczny w Button
+                {
+                    Text("Last day", modifier = Modifier,
+                        color = Color.White)
+                    Icon(
+                        imageVector = Icons.Filled.ArrowDropDown,
+                        contentDescription = null,
+                        modifier = Modifier,
+                        Color.White
+                    )
+                }
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                ) {
+                    suggestions.forEach { label ->
+                        DropdownMenuItem(onClick = {
+                            expanded = false
+                            //do something ...
+                        }) {
+                            Text(text = label)
+                        }
                     }
                 }
             }
         }
+        Spacer(modifier = Modifier.width(50.dp))
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray)
+            .width(30.dp)
+            .height(300.dp)
+            .wrapContentHeight(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+
+
+        )
+        {
+
+
+
+
+        }
 
     }
+
+
 }
 
 
