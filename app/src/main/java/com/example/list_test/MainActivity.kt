@@ -172,7 +172,7 @@ fun TestDropDownMenu(phoneState: PhoneState) {
                     suggestions.forEach { label ->
                         DropdownMenuItem(onClick = {
                             expanded = false
-                            phoneState.todayClicked(label)
+                            phoneState.filterClicked(label)
                         }) {
                             Text(text = label)
                         }

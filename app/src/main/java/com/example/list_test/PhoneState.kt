@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 class PhoneState {
 
-    fun todayClicked(label: String) {
+    fun filterClicked(label: String) {
         if (label == "Dzisiaj") {
             allElements.value = elementsBeforeFilter.filter {
                 it.data.dayOfMonth == LocalDateTime.now().dayOfMonth
