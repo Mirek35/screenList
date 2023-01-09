@@ -47,9 +47,6 @@ fun TestDropDownMenu(phoneState: PhoneState) {
     var expanded by remember { mutableStateOf(false) }
     val suggestions = listOf("Dzisiaj", "Wczoraj")
 
-//    Spacer(modifier = Modifier.height(20.dp))
-
-
     Column(
         modifier = Modifier
             .background(Color.Gray)
@@ -70,12 +67,14 @@ fun TestDropDownMenu(phoneState: PhoneState) {
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                "Status Connected",
+                "Status",
                 Modifier
                     .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
-                    .padding(10.dp),
+                    .padding(10.dp)
+                    .width(50.dp)
+                    .height(10.dp),
                 fontSize = 5.sp,
-                color = Color.White
+                color = Color.DarkGray,
 
             )
 
@@ -84,18 +83,22 @@ fun TestDropDownMenu(phoneState: PhoneState) {
                 Modifier
 
                     .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
-                    .padding(10.dp),
-                fontSize = 5.sp, color = Color.White,
+                    .padding(10.dp)
+                    .width(50.dp)
+                    .height(10.dp),
+                fontSize = 5.sp, color = Color.DarkGray,
 
                 )
 
             Text(
-                "Device Turn off",
+                "Device",
                 Modifier
                     .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
-                    .padding(10.dp),
+                    .padding(10.dp)
+                    .width(50.dp)
+                    .height(10.dp),
                 fontSize = 5.sp,
-                color = Color.White
+                color = Color.DarkGray
             )
 
         }
@@ -132,8 +135,7 @@ fun TestDropDownMenu(phoneState: PhoneState) {
                     contentPadding = PaddingValues(0.dp)
                 )   //text widoczny w Button
                 {
-                    Text(suggestions[0], modifier = Modifier, color = Color.White
-                    )
+                    Text(suggestions[0], modifier = Modifier, color = Color.White)
                     Icon(
                         imageVector = Icons.Filled.ArrowDropDown,
                         contentDescription = null,
@@ -182,6 +184,7 @@ private fun MyList(phoneState: PhoneState) {
         allElements.value.map {
             item {
                 MeasurementRow(it.isOk, it.signatureName, it.data)
+                Divider(color = Color.DarkGray, thickness = 1.dp)
             }
         }
     }
