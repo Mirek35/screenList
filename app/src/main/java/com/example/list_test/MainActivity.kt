@@ -5,37 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -187,10 +163,7 @@ fun TestDropDownMenu(phoneState: PhoneState) {
                 .background(Color.LightGray)
                 .width(30.dp)
                 .height(300.dp)
-                .wrapContentHeight(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-
-
+                .wrapContentHeight()
             ) {
             MyList(phoneState)
 
@@ -220,16 +193,19 @@ private fun MeasurementRow(isOk: String, signatureName: String, time: LocalDateT
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentWidth()
-            .padding(25.dp)
+            .padding(25.dp),
+        horizontalArrangement = Arrangement.spacedBy(
+            space = 80.dp,
+            alignment = Alignment.CenterHorizontally
+        )
     ) {
-        Text(text = isOk, fontSize = 10.sp, color = Color.Blue)
-        Spacer(modifier = Modifier.width(10.dp))
+        Text(text = isOk, fontSize = 10.sp)
+//        Spacer(modifier = Modifier.width(10.dp))
         Text(text = signatureName, fontSize = 10.sp, color = Color.Blue)
-        Spacer(modifier = Modifier.width(10.dp))
+//        Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = convertTimeToHumanReadableFormat(time), fontSize = 10.sp,
-            color =
-            Color.Blue
+            color = Color.Blue
         )
     }
 }
