@@ -193,7 +193,7 @@ private fun MeasurementRow(isOk: String, signatureName: String, time: LocalDateT
         .fillMaxWidth()
         .wrapContentWidth()
         .padding(25.dp),
-        horizontalArrangement = Arrangement.spacedBy(space = 90.dp,
+        horizontalArrangement = Arrangement.spacedBy(space = 70.dp,
             alignment = Alignment.CenterHorizontally)
     ) {
         if (isOk=="ok"){
@@ -209,8 +209,8 @@ private fun MeasurementRow(isOk: String, signatureName: String, time: LocalDateT
                 contentDescription =""
             )
 
-        Text(text = signatureName, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-        Text(text = convertTimeToHumanReadableFormat(time), fontSize = 10.sp, fontWeight = FontWeight.Bold,
+        Text(text = signatureName, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+        Text(text = convertTimeToHumanReadableFormat(time), fontSize = 14.sp, fontWeight = FontWeight.Bold,
             color = Color.Black)
     }
 }
