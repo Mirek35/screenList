@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -131,8 +132,7 @@ fun TestDropDownMenu(phoneState: PhoneState) {
                     contentPadding = PaddingValues(0.dp)
                 )   //text widoczny w Button
                 {
-                    Text(
-                        suggestions[0], modifier = Modifier, color = Color.White
+                    Text(suggestions[0], modifier = Modifier, color = Color.White
                     )
                     Icon(
                         imageVector = Icons.Filled.ArrowDropDown,
@@ -189,30 +189,35 @@ private fun MyList(phoneState: PhoneState) {
 
 @Composable
 private fun MeasurementRow(isOk: String, signatureName: String, time: LocalDateTime) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentWidth()
-            .padding(25.dp),
-        horizontalArrangement = Arrangement.spacedBy(
-            space = 80.dp,
-            alignment = Alignment.CenterHorizontally
-        )
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .wrapContentWidth()
+        .padding(25.dp),
+        horizontalArrangement = Arrangement.spacedBy(space = 90.dp,
+            alignment = Alignment.CenterHorizontally)
     ) {
-        Text(text = isOk, fontSize = 10.sp)
-//        Spacer(modifier = Modifier.width(10.dp))
-        Text(text = signatureName, fontSize = 10.sp, color = Color.Blue)
-//        Spacer(modifier = Modifier.width(10.dp))
-        Text(
-            text = convertTimeToHumanReadableFormat(time), fontSize = 10.sp,
-            color = Color.Blue
-        )
+        if (isOk=="ok"){
+            Icon(
+                painter = painterResource(R.drawable.scanning_ending),
+                modifier = Modifier.size(24.dp), tint = Color.Unspecified,
+                contentDescription =""
+            )
+        }else
+            Icon(
+                painter = painterResource(R.drawable.scanning_error),
+                modifier = Modifier.size(24.dp), tint = Color.Unspecified,
+                contentDescription =""
+            )
+
+        Text(text = signatureName, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+        Text(text = convertTimeToHumanReadableFormat(time), fontSize = 10.sp, fontWeight = FontWeight.Bold,
+            color = Color.Black)
     }
 }
 
 @Composable
 private fun convertTimeToHumanReadableFormat(timeToBeFormatted: LocalDateTime): String {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    val formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss")
     return timeToBeFormatted.format(formatter)
 }
 
