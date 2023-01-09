@@ -31,6 +31,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -67,7 +68,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun TestDropDownMenu(phoneState: PhoneState) {
     var expanded by remember { mutableStateOf(false) }
-    val suggestions = listOf("Day", "Week", "Month")
+    val suggestions = listOf("Dzisiaj", "Wczoraj")
 
 //    Spacer(modifier = Modifier.height(20.dp))
 
@@ -155,7 +156,7 @@ fun TestDropDownMenu(phoneState: PhoneState) {
                 )   //text widoczny w Button
                 {
                     Text(
-                        "Last day", modifier = Modifier, color = Color.White
+                        suggestions[0], modifier = Modifier, color = Color.White
                     )
                     Icon(
                         imageVector = Icons.Filled.ArrowDropDown,
@@ -171,7 +172,7 @@ fun TestDropDownMenu(phoneState: PhoneState) {
                     suggestions.forEach { label ->
                         DropdownMenuItem(onClick = {
                             expanded = false
-                            //do something ...
+                            phoneState.todayClicked(label)
                         }) {
                             Text(text = label)
                         }
@@ -200,13 +201,12 @@ fun TestDropDownMenu(phoneState: PhoneState) {
 
 }
 
-data class ElementsForOneRow(val isOk: String, val signatureName: String, val data: LocalDateTime)
-
 @Composable
 private fun MyList(phoneState: PhoneState) {
+    val allElements = phoneState.allElements.collectAsState()
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
-        phoneState.allElements.map {
+        allElements.value.map {
             item {
                 MeasurementRow(it.isOk, it.signatureName, it.data)
             }
