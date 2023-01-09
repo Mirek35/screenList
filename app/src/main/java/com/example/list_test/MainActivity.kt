@@ -21,7 +21,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.list_test.ui.theme.List_testTheme
+import java.time.format.TextStyle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,28 +66,26 @@ fun TestDropDownMenu() {
         {
 
 
-            Text(
-                "Order",
+            Text("Status Connected",
                 Modifier
-                    .background(Color.DarkGray)
-                    .clip(RoundedCornerShape(20.dp))
-                    .padding(10.dp)
+                    .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
+                    .padding(10.dp),
+                fontSize = 5.sp, color = Color.White
             )
 
-
-
-            Text(
-                "Order",
+            Text("Batery",
                 Modifier
-                    .background(Color.DarkGray, RectangleShape)
-                    .padding(10.dp)
+
+                    .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
+                    .padding(10.dp),
+                fontSize = 5.sp ,color = Color.White
             )
 
-            Text(
-                "Order",
+            Text("Device Turn off",
                 Modifier
-                    .background(Color.DarkGray, RectangleShape)
-                    .padding(10.dp)
+                    .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
+                    .padding(10.dp),
+                fontSize = 5.sp, color = Color.White
             )
 
         }
