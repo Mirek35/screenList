@@ -64,22 +64,23 @@ fun TestDropDownMenu() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.Bottom)
         {
-
-
             Text("Status Connected",
                 Modifier
                     .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
                     .padding(10.dp),
                 fontSize = 5.sp, color = Color.White
+
             )
 
-            Text("Batery",
+            Text(
+                "Batery",
                 Modifier
 
                     .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
                     .padding(10.dp),
-                fontSize = 5.sp ,color = Color.White
-            )
+                fontSize = 5.sp, color = Color.White,
+
+                )
 
             Text("Device Turn off",
                 Modifier
@@ -155,7 +156,7 @@ fun TestDropDownMenu() {
 
             )
         {
-
+            Text(text = "Tutaj twoja lista", fontSize = 40.sp, color = Color.Blue)
 
         }
 
