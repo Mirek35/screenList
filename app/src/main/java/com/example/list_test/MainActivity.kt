@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,82 +51,112 @@ fun TestDropDownMenu(phoneState: PhoneState) {
     Column(
         modifier = Modifier
             .background(Color.Gray)
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(5.dp)  //odlegl pomiedzy elementami
+            .fillMaxWidth()
+            .padding(1.dp),
 
-    ) {
-        Spacer(modifier = Modifier.height(20.dp))
-        Image(
-            painter = painterResource(id = R.drawable.main_background), contentDescription = ""
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-
+        ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            Modifier
+                .fillMaxWidth()
+                .weight(3f)
+                .background(Color.Blue)
+                .padding(1.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Box() {
+                Image(
+                    painter = painterResource(id = R.drawable.main_background),
+                    contentDescription = ""
+                )
+            }
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(0.3f)
+                .padding(1.dp)
+                .background(Color.White),
             horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.Bottom
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 "Status",
                 Modifier
-                    .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
+                    .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
                     .padding(10.dp)
                     .width(50.dp)
                     .height(10.dp),
-                fontSize = 5.sp,
+                textAlign = TextAlign.Center,
+                fontSize = 9.sp,
                 color = Color.DarkGray,
 
-            )
+                )
 
             Text(
                 "Batery",
                 Modifier
 
-                    .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
+                    .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
                     .padding(10.dp)
                     .width(50.dp)
                     .height(10.dp),
-                fontSize = 5.sp, color = Color.DarkGray,
+                textAlign = TextAlign.Center,
+                fontSize = 5.sp, color = Color.White,
 
                 )
 
             Text(
                 "Device",
                 Modifier
-                    .background(Color.DarkGray, shape = RoundedCornerShape(5.dp))
+                    .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
                     .padding(10.dp)
                     .width(50.dp)
                     .height(10.dp),
+                textAlign = TextAlign.Center,
                 fontSize = 5.sp,
                 color = Color.DarkGray
             )
 
         }
-        Spacer(modifier = Modifier.height(20.dp))
+//        Spacer(modifier = Modifier.height(20.dp))
 
-        Row() {
-            Spacer(modifier = Modifier.width(10.dp))
-            Icon(
-                painter = painterResource(R.drawable.radar2),
-                contentDescription = "ikona",
+        Row(
+            modifier = Modifier
+                .background(Color.Green)
+                .fillMaxWidth()
+                .weight(0.3f),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
                 modifier = Modifier
-                    .width(24.dp)
-                    .height(24.dp),
-                tint = Color.Unspecified
-            )
-            Spacer(modifier = Modifier.width(15.dp))
-
-            Text(
-                text = "Last measurements",
-                color = Color.White,
-                fontFamily = FontFamily.Monospace,
+                    .padding(horizontal = 6.dp)
+                    .background(Color.Yellow)
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.radar2),
+                    contentDescription = "ikona",
+                    modifier = Modifier
+                        .width(24.dp)
+                        .height(24.dp),
+                    tint = Color.Unspecified
+                )
+            }
+            Box() {
+                Text(
+                    text = "Last measurements",
+                    color = Color.White,
+                    fontFamily = FontFamily.Monospace,
+                    modifier = Modifier
+                        .width(200.dp)
+                        .height(30.dp)
+                )
+            }
+            Box(
                 modifier = Modifier
-                    .width(200.dp)
-                    .height(30.dp)
-            )
-            Spacer(modifier = Modifier.width(50.dp))
-            Box {
+                    .padding(6.dp)
+            ) {
                 Button(
                     modifier = Modifier
                         .height(28.dp)
@@ -162,11 +193,11 @@ fun TestDropDownMenu(phoneState: PhoneState) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.LightGray)
+                .background(Color.White)
                 .width(30.dp)
                 .height(300.dp)
                 .wrapContentHeight()
-            ) {
+        ) {
             MyList(phoneState)
 
         }
@@ -184,7 +215,6 @@ private fun MyList(phoneState: PhoneState) {
         allElements.value.map {
             item {
                 MeasurementRow(it.isOk, it.signatureName, it.data)
-                Divider(color = Color.DarkGray, thickness = 1.dp)
             }
         }
     }
@@ -192,35 +222,77 @@ private fun MyList(phoneState: PhoneState) {
 
 @Composable
 private fun MeasurementRow(isOk: String, signatureName: String, time: LocalDateTime) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .wrapContentWidth()
-        .padding(25.dp),
-        horizontalArrangement = Arrangement.spacedBy(space = 70.dp,
-            alignment = Alignment.CenterHorizontally)
-    ) {
-        if (isOk=="ok"){
-            Icon(
-                painter = painterResource(R.drawable.scanning_ending),
-                modifier = Modifier.size(24.dp), tint = Color.Unspecified,
-                contentDescription =""
-            )
-        }else
-            Icon(
-                painter = painterResource(R.drawable.scanning_error),
-                modifier = Modifier.size(24.dp), tint = Color.Unspecified,
-                contentDescription =""
-            )
 
-        Text(text = signatureName, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-        Text(text = convertTimeToHumanReadableFormat(time), fontSize = 14.sp, fontWeight = FontWeight.Bold,
-            color = Color.Black)
+    Row(
+        modifier = Modifier
+            .padding(2.dp)
+            .fillMaxWidth()
+            .background(Color.Gray),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+
+    ) {
+        Box(
+            Modifier
+                .width(130.dp)
+                .height(60.dp)
+                .padding(2.dp)
+                .background(Color.Gray),
+            contentAlignment = Alignment.Center
+        ) {
+            if (isOk == "ok") {
+                Icon(
+                    painter = painterResource(R.drawable.scanning_ending),
+                    modifier = Modifier.size(27.dp), tint = Color.Unspecified,
+                    contentDescription = ""
+                )
+            } else
+                Icon(
+                    painter = painterResource(R.drawable.scanning_error),
+                    modifier = Modifier.size(27.dp), tint = Color.Unspecified,
+                    contentDescription = ""
+                )
+        }
+        Box(
+            Modifier
+                .width(130.dp)
+                .height(60.dp)
+                .padding(2.dp)
+                .background(Color.Gray),
+            contentAlignment = Alignment.Center
+        ) {
+
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp),
+
+                text = signatureName,
+                fontSize = 12.sp,
+                color = Color.White
+            )
+        }
+        Box(
+            Modifier
+                .width(120.dp)
+                .height(60.dp)
+                .padding(2.dp)
+                .background(Color.Gray),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = convertTimeToHumanReadableFormat(time),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
     }
 }
 
+
 @Composable
 private fun convertTimeToHumanReadableFormat(timeToBeFormatted: LocalDateTime): String {
-    val formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss")
+    val formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm")
     return timeToBeFormatted.format(formatter)
 }
 
