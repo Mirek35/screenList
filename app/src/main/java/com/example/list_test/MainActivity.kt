@@ -55,70 +55,8 @@ fun TestDropDownMenu(phoneState: PhoneState) {
             .padding(1.dp),
 
         ) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .weight(3f)
-                .background(Color.Blue)
-                .padding(1.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Box() {
-                Image(
-                    painter = painterResource(id = R.drawable.main_background),
-                    contentDescription = ""
-                )
-            }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.3f)
-                .padding(1.dp)
-                .background(Color.White),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                "Status",
-                Modifier
-                    .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
-                    .padding(10.dp)
-                    .width(50.dp)
-                    .height(10.dp),
-                textAlign = TextAlign.Center,
-                fontSize = 9.sp,
-                color = Color.DarkGray,
-
-                )
-
-            Text(
-                "Batery",
-                Modifier
-
-                    .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
-                    .padding(10.dp)
-                    .width(50.dp)
-                    .height(10.dp),
-                textAlign = TextAlign.Center,
-                fontSize = 5.sp, color = Color.White,
-
-                )
-
-            Text(
-                "Device",
-                Modifier
-                    .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
-                    .padding(10.dp)
-                    .width(50.dp)
-                    .height(10.dp),
-                textAlign = TextAlign.Center,
-                fontSize = 5.sp,
-                color = Color.DarkGray
-            )
-
-        }
+        TopIconDevice()
+        TreeTextsInTheMiddle()
 //        Spacer(modifier = Modifier.height(20.dp))
 
         Row(
@@ -205,6 +143,78 @@ fun TestDropDownMenu(phoneState: PhoneState) {
     }
 
 
+}
+
+@Composable
+private fun ColumnScope.TreeTextsInTheMiddle() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .weight(0.3f)
+            .padding(1.dp)
+            .background(Color.White),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            "Status",
+            Modifier
+                .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
+                .padding(10.dp)
+                .width(50.dp)
+                .height(10.dp),
+            textAlign = TextAlign.Center,
+            fontSize = 9.sp,
+            color = Color.DarkGray,
+
+            )
+
+        Text(
+            "Batery",
+            Modifier
+
+                .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
+                .padding(10.dp)
+                .width(50.dp)
+                .height(10.dp),
+            textAlign = TextAlign.Center,
+            fontSize = 5.sp, color = Color.White,
+
+            )
+
+        Text(
+            "Device",
+            Modifier
+                .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
+                .padding(10.dp)
+                .width(50.dp)
+                .height(10.dp),
+            textAlign = TextAlign.Center,
+            fontSize = 5.sp,
+            color = Color.DarkGray
+        )
+
+    }
+}
+
+@Composable
+private fun ColumnScope.TopIconDevice() {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .weight(3f)
+            .background(Color.Blue)
+            .padding(1.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Box() {
+            Image(
+                painter = painterResource(id = R.drawable.main_background),
+                contentDescription = ""
+            )
+        }
+    }
 }
 
 @Composable
