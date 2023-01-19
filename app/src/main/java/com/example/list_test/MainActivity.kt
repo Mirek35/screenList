@@ -45,108 +45,39 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TestDropDownMenu(phoneState: PhoneState) {
-    var expanded by remember { mutableStateOf(false) }
-    val suggestions = listOf("Dzisiaj", "Wczoraj")
-
-    Column(
-        modifier = Modifier
-            .background(Color.Gray)
-            .fillMaxWidth()
-            .padding(1.dp),
-
-        ) {
+    Column(modifier = Modifier.background(Color.Gray).fillMaxWidth().padding(1.dp), )
+    {
         TopIconDevice()
-        TreeTextsInTheMiddle()
-//        Spacer(modifier = Modifier.height(20.dp))
-
-        Row(
-            modifier = Modifier
-                .background(Color.Green)
-                .fillMaxWidth()
-                .weight(0.3f),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 6.dp)
-                    .background(Color.Yellow)
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.radar2),
-                    contentDescription = "ikona",
-                    modifier = Modifier
-                        .width(24.dp)
-                        .height(24.dp),
-                    tint = Color.Unspecified
-                )
-            }
-            Box() {
-                Text(
-                    text = "Last measurements",
-                    color = Color.White,
-                    fontFamily = FontFamily.Monospace,
-                    modifier = Modifier
-                        .width(200.dp)
-                        .height(30.dp)
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .padding(6.dp)
-            ) {
-                Button(
-                    modifier = Modifier
-                        .height(28.dp)
-                        .width(100.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
-                    onClick = { expanded = !expanded },
-                    contentPadding = PaddingValues(0.dp)
-                )   //text widoczny w Button
-                {
-                    Text(suggestions[0], modifier = Modifier, color = Color.White)
-                    Icon(
-                        imageVector = Icons.Filled.ArrowDropDown,
-                        contentDescription = null,
-                        modifier = Modifier,
-                        Color.White
-                    )
-                }
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false },
-                ) {
-                    suggestions.forEach { label ->
-                        DropdownMenuItem(onClick = {
-                            expanded = false
-                            phoneState.filterClicked(label)
-                        }) {
-                            Text(text = label)
-                        }
-                    }
-                }
-            }
-        }
-        Spacer(modifier = Modifier.width(50.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White)
-                .width(30.dp)
-                .height(300.dp)
-                .wrapContentHeight()
-        ) {
+        TreeBoxesTextsInTheMiddle()
+        RowInTheDropDownMenu(phoneState)
             MyList(phoneState)
-
-        }
-
     }
+}
 
 
+
+@Composable
+private fun ColumnScope.TopIconDevice() {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .weight(3f)
+            .background(Color.Blue)
+            .padding(1.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Box() {
+            Image(
+                painter = painterResource(id = R.drawable.main_background),
+                contentDescription = ""
+            )
+        }
+    }
 }
 
 @Composable
-private fun ColumnScope.TreeTextsInTheMiddle() {
+private fun ColumnScope.TreeBoxesTextsInTheMiddle() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,7 +109,7 @@ private fun ColumnScope.TreeTextsInTheMiddle() {
                 .width(50.dp)
                 .height(10.dp),
             textAlign = TextAlign.Center,
-            fontSize = 5.sp, color = Color.White,
+            fontSize = 9.sp, color = Color.Black,
 
             )
 
@@ -190,37 +121,91 @@ private fun ColumnScope.TreeTextsInTheMiddle() {
                 .width(50.dp)
                 .height(10.dp),
             textAlign = TextAlign.Center,
-            fontSize = 5.sp,
-            color = Color.DarkGray
+            fontSize = 9.sp,
+            color = Color.Black
         )
 
     }
 }
 
 @Composable
-private fun ColumnScope.TopIconDevice() {
+private fun ColumnScope.RowInTheDropDownMenu(phoneState: PhoneState) {
     Row(
-        Modifier
+        modifier = Modifier
+            .background(Color.Green)
             .fillMaxWidth()
-            .weight(3f)
-            .background(Color.Blue)
-            .padding(1.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+            .weight(0.3f),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Box() {
-            Image(
-                painter = painterResource(id = R.drawable.main_background),
-                contentDescription = ""
+        Box(
+            modifier = Modifier
+                .padding(horizontal = 6.dp)
+                .background(Color.Yellow)
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.radar2),
+                contentDescription = "ikona",
+                modifier = Modifier
+                    .width(24.dp)
+                    .height(24.dp),
+                tint = Color.Unspecified
             )
+        }
+        Box() {
+            Text(
+                text = "Last measurements",
+                color = Color.White,
+                fontFamily = FontFamily.Monospace,
+                modifier = Modifier
+                    .width(200.dp)
+                    .height(30.dp)
+            )
+        }
+        Box(
+            modifier = Modifier
+                .padding(6.dp)
+        ) {
+            var expanded by remember { mutableStateOf(false) }
+            val suggestions = listOf("Dzisiaj", "Wczoraj")
+            Button(
+                modifier = Modifier
+                    .height(28.dp)
+                    .width(100.dp),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
+                onClick = { expanded = !expanded },
+                contentPadding = PaddingValues(0.dp)
+            )   //text widoczny w Button
+            {
+                Text(suggestions[0], modifier = Modifier, color = Color.White)
+                Icon(
+                    imageVector = Icons.Filled.ArrowDropDown,
+                    contentDescription = null,
+                    modifier = Modifier,
+                    Color.White
+                )
+            }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+            ) {
+                suggestions.forEach { label ->
+                    DropdownMenuItem(onClick = {
+                        expanded = false
+                        phoneState.filterClicked(label)
+                    }) {
+                        Text(text = label)
+                    }
+                }
+            }
         }
     }
 }
 
 @Composable
-private fun MyList(phoneState: PhoneState) {
+private fun ColumnScope.MyList(phoneState: PhoneState) {
     val allElements = phoneState.allElements.collectAsState()
-
+    Row(modifier = Modifier.fillMaxWidth().background(Color.White).width(30.dp).weight(1f).wrapContentHeight()){
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         allElements.value.map {
             item {
@@ -228,11 +213,10 @@ private fun MyList(phoneState: PhoneState) {
             }
         }
     }
-}
+}}
 
 @Composable
 private fun MeasurementRow(isOk: String, signatureName: String, time: LocalDateTime) {
-
     Row(
         modifier = Modifier
             .padding(2.dp)
@@ -253,13 +237,13 @@ private fun MeasurementRow(isOk: String, signatureName: String, time: LocalDateT
             if (isOk == "ok") {
                 Icon(
                     painter = painterResource(R.drawable.scanning_ending),
-                    modifier = Modifier.size(27.dp), tint = Color.Unspecified,
+                    modifier = Modifier.size(40.dp), tint = Color.Unspecified,
                     contentDescription = ""
                 )
             } else
                 Icon(
                     painter = painterResource(R.drawable.scanning_error),
-                    modifier = Modifier.size(27.dp), tint = Color.Unspecified,
+                    modifier = Modifier.size(40.dp), tint = Color.Unspecified,
                     contentDescription = ""
                 )
         }
@@ -284,7 +268,7 @@ private fun MeasurementRow(isOk: String, signatureName: String, time: LocalDateT
         Box(
             Modifier
                 .width(120.dp)
-                .height(60.dp)
+                .height(30.dp)
                 .padding(2.dp)
                 .background(Color.Gray),
             contentAlignment = Alignment.Center
