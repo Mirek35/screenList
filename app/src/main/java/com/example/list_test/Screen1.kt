@@ -49,7 +49,7 @@ private fun ColumnScope.RowInTheDropDownMenu(phoneState: PhoneState) {
                 .background(Color.Transparent)
         ) {
             Icon(
-                painter = painterResource(R.drawable.radar2),
+                painter = painterResource(R.drawable.ic_radar),
                 contentDescription = "ikona",
                 modifier = Modifier
                     .width(28.dp)
@@ -78,8 +78,8 @@ private fun ColumnScope.RowInTheDropDownMenu(phoneState: PhoneState) {
             val suggestions = listOf("Dzisiaj", "Wczoraj")
             Button(
                 modifier = androidx.compose.ui.Modifier
-                    .height(28.dp)
-                    .width(80.dp),
+                    .height(25.dp)
+                    .width(78.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
                 onClick = { expanded = !expanded },
                 contentPadding = PaddingValues(0.dp)
