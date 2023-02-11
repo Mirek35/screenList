@@ -10,8 +10,8 @@
         <option name="gradleJvm" value="jbr-17" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="/mnt/30EADDA6EADD691C/Dane/Dokumenty/temp/projektyAndroid/screenList" />
+            <option value="/mnt/30EADDA6EADD691C/Dane/Dokumenty/temp/projektyAndroid/screenList/app" />
           </set>
         </option>
       </GradleProjectSettings>

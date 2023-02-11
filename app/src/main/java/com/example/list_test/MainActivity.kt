@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,26 +16,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.list_test.ui.theme.List_testTheme
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import com.example.list_test.list.MeasurementList
+import com.example.list_test.model.Model
+import com.example.list_test.ui.theme.MaterialListTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val phoneState = PhoneState()
+        val model = Model()
         setContent {
-            List_testTheme {
+            MaterialListTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
-                    TestDropDownMenu(phoneState)
+                    WholeScreen(model)
                 }
             }
         }
@@ -44,13 +42,13 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TestDropDownMenu(phoneState: PhoneState) {
+fun WholeScreen(model: Model) {
     Column(modifier = Modifier.background(Color.Gray).fillMaxWidth().padding(1.dp), )
     {
-        TopIconDevice()
-        TreeBoxesTextsInTheMiddle()
-        RowInTheDropDownMenu(phoneState)
-            MyList(phoneState)
+//        TopIconDevice()
+//        TreeBoxesTextsInTheMiddle()
+        RowInTheDropDownMenu(model)
+        MeasurementList(model)
     }
 }
 
@@ -129,10 +127,10 @@ private fun ColumnScope.TreeBoxesTextsInTheMiddle() {
 }
 
 @Composable
-private fun ColumnScope.RowInTheDropDownMenu(phoneState: PhoneState) {
+private fun ColumnScope.RowInTheDropDownMenu(model: Model) {
     Row(
         modifier = Modifier
-            .background(Color.Green)
+            .background(Color.Gray)
             .fillMaxWidth()
             .weight(0.3f),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -141,7 +139,6 @@ private fun ColumnScope.RowInTheDropDownMenu(phoneState: PhoneState) {
         Box(
             modifier = Modifier
                 .padding(horizontal = 6.dp)
-                .background(Color.Yellow)
         ) {
             Icon(
                 painter = painterResource(R.drawable.radar2),
@@ -152,7 +149,7 @@ private fun ColumnScope.RowInTheDropDownMenu(phoneState: PhoneState) {
                 tint = Color.Unspecified
             )
         }
-        Box() {
+        Box {
             Text(
                 text = "Last measurements",
                 color = Color.White,
@@ -175,7 +172,7 @@ private fun ColumnScope.RowInTheDropDownMenu(phoneState: PhoneState) {
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
                 onClick = { expanded = !expanded },
                 contentPadding = PaddingValues(0.dp)
-            )   //text widoczny w Button
+            )
             {
                 Text(suggestions[0], modifier = Modifier, color = Color.White)
                 Icon(
@@ -192,7 +189,7 @@ private fun ColumnScope.RowInTheDropDownMenu(phoneState: PhoneState) {
                 suggestions.forEach { label ->
                     DropdownMenuItem(onClick = {
                         expanded = false
-                        phoneState.filterClicked(label)
+                        model.filterClicked(label)
                     }) {
                         Text(text = label)
                     }
@@ -202,99 +199,11 @@ private fun ColumnScope.RowInTheDropDownMenu(phoneState: PhoneState) {
     }
 }
 
-@Composable
-private fun ColumnScope.MyList(phoneState: PhoneState) {
-    val allElements = phoneState.allElements.collectAsState()
-    Row(modifier = Modifier.fillMaxWidth().background(Color.White).width(30.dp).weight(1f).wrapContentHeight()){
-    LazyColumn(modifier = Modifier.fillMaxWidth()) {
-        allElements.value.map {
-            item {
-                MeasurementRow(it.isOk, it.signatureName, it.data)
-            }
-        }
-    }
-}}
-
-@Composable
-private fun MeasurementRow(isOk: String, signatureName: String, time: LocalDateTime) {
-    Row(
-        modifier = Modifier
-            .padding(2.dp)
-            .fillMaxWidth()
-            .background(Color.Gray),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-
-    ) {
-        Box(
-            Modifier
-                .width(130.dp)
-                .height(60.dp)
-                .padding(2.dp)
-                .background(Color.Gray),
-            contentAlignment = Alignment.Center
-        ) {
-            if (isOk == "ok") {
-                Icon(
-                    painter = painterResource(R.drawable.scanning_ending),
-                    modifier = Modifier.size(40.dp), tint = Color.Unspecified,
-                    contentDescription = ""
-                )
-            } else
-                Icon(
-                    painter = painterResource(R.drawable.scanning_error),
-                    modifier = Modifier.size(40.dp), tint = Color.Unspecified,
-                    contentDescription = ""
-                )
-        }
-        Box(
-            Modifier
-                .width(130.dp)
-                .height(60.dp)
-                .padding(2.dp)
-                .background(Color.Gray),
-            contentAlignment = Alignment.Center
-        ) {
-
-            Text(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
-
-                text = signatureName,
-                fontSize = 12.sp,
-                color = Color.White
-            )
-        }
-        Box(
-            Modifier
-                .width(120.dp)
-                .height(30.dp)
-                .padding(2.dp)
-                .background(Color.Gray),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = convertTimeToHumanReadableFormat(time),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
-            )
-        }
-    }
-}
-
-
-@Composable
-private fun convertTimeToHumanReadableFormat(timeToBeFormatted: LocalDateTime): String {
-    val formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm")
-    return timeToBeFormatted.format(formatter)
-}
-
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    List_testTheme {
-        TestDropDownMenu(PhoneState())
+    MaterialListTheme {
+        WholeScreen(Model())
     }
 }
