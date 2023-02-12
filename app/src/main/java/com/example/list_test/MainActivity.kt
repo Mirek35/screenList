@@ -22,14 +22,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.list_test.list.MeasurementList
 import com.example.list_test.model.Model
-import com.example.list_test.ui.theme.MaterialListTheme
+import com.example.list_test.ui.theme.ListTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val model = Model()
         setContent {
-            MaterialListTheme {
+            ListTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
@@ -203,7 +203,7 @@ private fun ColumnScope.RowInTheDropDownMenu(model: Model) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MaterialListTheme {
+    ListTheme {
         WholeScreen(Model())
     }
 }
