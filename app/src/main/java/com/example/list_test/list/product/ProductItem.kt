@@ -1,5 +1,6 @@
 package com.example.list_test.list.product
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -13,17 +14,30 @@ import com.example.list_test.ui.theme.ListTheme
 import java.time.LocalDateTime
 
 @Composable
-fun ProductItem(recognized: Boolean, productName: String, time: LocalDateTime) {
+fun ProductItem(
+    recognized: Boolean,
+    productName: String,
+    time: LocalDateTime,
+    onProductClicked: () -> Unit = {}
+) {
     Row(
-        modifier = Modifier.padding(vertical = 15.dp),
+        modifier = Modifier
+            .clickable(enabled = recognized) { onProductClicked() }
+            .padding(start = 20.dp, top = 15.dp, bottom = 15.dp),
+
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ProductIcon(recognized)
-        ProductSignature(productName)
-        Spacer(modifier = Modifier.weight(1f).fillMaxHeight())
-        ProductDate(time)
+        ProductSignature(productName, Modifier.padding(horizontal = 16.dp))
+        Spacer(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+        )
+        ProductDate(time, Modifier.padding(end = 15.dp))
     }
 }
+
 
 @Preview
 @Composable

@@ -1,10 +1,10 @@
 package com.example.list_test.list
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
@@ -22,13 +22,13 @@ import com.example.list_test.model.Model
 import com.example.list_test.ui.theme.ListTheme
 
 @Composable
-fun MeasurementList(model: Model) {
+fun ProductList(model: Model,
+                onProductClicked: () -> Unit = {}) {
     val groupedProducts = model.groupedProducts.collectAsState()
     Row(
         modifier = Modifier
-            .background(
-                color = colorResource(R.color.list_background)
-            )
+            .clip(RoundedCornerShape(topEnd = 15.dp, topStart = 15.dp))
+            .background(color = colorResource(R.color.list_background))
     ) {
         LazyColumn(
             modifier = Modifier
@@ -37,11 +37,11 @@ fun MeasurementList(model: Model) {
         ) {
             groupedProducts.value.map {
                 item {
-                    DateHeader(it.day)
+                    DateHeader(it.day, Modifier.padding(start = 20.dp, top = 7.dp))
                 }
                 it.products.map {
                     item {
-                        ProductItem(it.recognized, it.signatureName, it.data)
+                        ProductItem(it.recognized, it.signatureName, it.data, onProductClicked)
                         Divider(color = Color.Black)
                     }
                 }
@@ -50,12 +50,10 @@ fun MeasurementList(model: Model) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun MeasurementListPreview() {
+fun ProductListPreview() {
     ListTheme {
-        Column(modifier = Modifier.clip(RoundedCornerShape(topEnd = 15.dp, topStart = 15.dp))) {
-            MeasurementList(model = Model())
-        }
+        ProductList(model = Model())
     }
 }

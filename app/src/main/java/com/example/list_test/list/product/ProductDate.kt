@@ -13,9 +13,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun ProductDate(time: LocalDateTime) {
+fun ProductDate(time: LocalDateTime, modifier: Modifier) {
     Text(
-        modifier = Modifier.padding(end = 15.dp),
+        modifier = modifier,
         text = convertTimeToHumanReadableFormat(time),
         fontSize = 13.sp,
         color = Color.White
@@ -31,6 +31,6 @@ private fun convertTimeToHumanReadableFormat(timeToBeFormatted: LocalDateTime): 
 @Composable
 fun ProductDatePreview() {
     ListTheme {
-        ProductDate(LocalDateTime.now())
+        ProductDate(LocalDateTime.now(), Modifier.padding(0.dp))
     }
 }

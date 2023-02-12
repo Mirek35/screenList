@@ -13,9 +13,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun DateHeader(dateTime: LocalDateTime) {
+fun DateHeader(dateTime: LocalDateTime, modifier: Modifier) {
     Text(
-        modifier = Modifier.padding(start = 20.dp, top = 7.dp),
+        modifier = modifier,
         text = converterDateTime(dateTime),
         fontSize = 13.sp,
         color = Color.White
@@ -31,6 +31,6 @@ fun converterDateTime(dateTime: LocalDateTime): String {
 @Composable
 fun DataHeaderPreview() {
     ListTheme {
-        DateHeader(LocalDateTime.now())
+        DateHeader(LocalDateTime.now(), Modifier.padding(0.dp))
     }
 }

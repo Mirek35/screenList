@@ -1,6 +1,7 @@
 package com.example.list_test
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -20,7 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.list_test.list.MeasurementList
+import com.example.list_test.list.ProductList
 import com.example.list_test.model.Model
 import com.example.list_test.ui.theme.ListTheme
 
@@ -34,21 +35,25 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
-                    WholeScreen(model)
+                    WholeScreen(model, ::onRecognizedProductClicked)
                 }
             }
         }
     }
+
+    private fun onRecognizedProductClicked() {
+        Toast.makeText(applicationContext, "Product clicked", Toast.LENGTH_SHORT).show()
+    }
 }
 
 @Composable
-fun WholeScreen(model: Model) {
-    Column(modifier = Modifier.background(Color.Gray).fillMaxWidth().padding(1.dp), )
+fun WholeScreen(model: Model, onProductClicked: () -> Unit = {}) {
+    Column(modifier = Modifier.background(Color.Gray).fillMaxWidth(), )
     {
 //        TopIconDevice()
 //        TreeBoxesTextsInTheMiddle()
         RowInTheDropDownMenu(model)
-        MeasurementList(model)
+        ProductList(model, onProductClicked)
     }
 }
 
@@ -200,7 +205,7 @@ private fun ColumnScope.RowInTheDropDownMenu(model: Model) {
 }
 
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun DefaultPreview() {
     ListTheme {

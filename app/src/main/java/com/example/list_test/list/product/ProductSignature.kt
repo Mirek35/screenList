@@ -11,19 +11,19 @@ import androidx.compose.ui.unit.sp
 import com.example.list_test.ui.theme.ListTheme
 
 @Composable
-fun ProductSignature(signatureName: String) {
+fun ProductSignature(signatureName: String, modifier: Modifier) {
     Text(
-        modifier = Modifier.padding(horizontal = 16.dp),
+        modifier = modifier,
         text = signatureName,
         fontSize = 12.sp,
         color = Color.White
     )
 }
 
-@Preview(backgroundColor = 0x000000)
+@Preview
 @Composable
 fun ProductSignaturePreview() {
     ListTheme {
-        ProductSignature("Some signature of product")
+        ProductSignature("Some signature of product", Modifier.padding(0.dp))
     }
 }
