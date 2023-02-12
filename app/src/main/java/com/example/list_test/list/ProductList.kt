@@ -42,7 +42,7 @@ fun ProductList(model: Model,
                 it.products.map {
                     item {
                         ProductItem(it.recognized, it.signatureName, it.data, onProductClicked)
-                        Divider(color = Color.Black)
+                        Divider(color = colorResource(id = R.color.separator_color))
                     }
                 }
             }
